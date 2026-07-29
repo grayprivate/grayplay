@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>דילמת האסיר · Prisoner's Dilemma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Secular+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <div class="sun"></div>
+    <svg class="star-field" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="magen" points="60,8 72,42 108,42 78,64 90,98 60,76 30,98 42,64 12,42 48,42" />
+    </svg>
+    <div class="flag-band flag-band-top"></div>
+    <div class="flag-band flag-band-bottom"></div>
+  </div>
+
+  <svg class="coast" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+    <path class="wave wave-back" d="M0,120 C180,80 360,160 540,120 C720,80 900,160 1080,120 C1260,80 1380,100 1440,90 L1440,220 L0,220 Z" />
+    <path class="wave wave-mid" d="M0,140 C200,100 400,180 600,140 C800,100 1000,180 1200,140 C1320,120 1400,130 1440,125 L1440,220 L0,220 Z" />
+    <path class="wave wave-front" d="M0,160 C240,130 420,190 660,160 C900,130 1100,190 1320,155 C1380,148 1420,150 1440,152 L1440,220 L0,220 Z" />
+  </svg>
+
+  <header class="hero">
+    <p class="eyebrow" lang="he">ישראל · אסטרטגיה · שיתוף פעולה</p>
+    <h1>
+      <span class="he" lang="he">דילמת האסיר</span>
+      <span class="en">Prisoner's Dilemma</span>
+    </h1>
+    <p class="lede">Axelrod-style tournament on the Mediterranean shore. Compete, cooperate, or defect under blue-and-white skies.</p>
+    <div class="hero-cta">
+      <button type="button" class="btn btn-primary" data-mode="play">Play vs AI</button>
+      <button type="button" class="btn btn-ghost" data-mode="tournament">Run tournament</button>
+    </div>
+  </header>
+
+  <main>
+    <nav class="tabs" role="tablist">
+      <button type="button" class="tab is-active" role="tab" aria-selected="true" data-panel="play">Play vs AI</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-panel="tournament">Tournament</button>
+    </nav>
+
+    <section id="panel-play" class="panel is-active" role="tabpanel">
+      <div class="play-layout">
+        <aside class="card controls">
+          <h2>Match setup</h2>
+          <label>
+            Opponent strategy
+            <select id="opponent">
+              <option value="Tit for Tat" selected>Tit for Tat</option>
+              <option value="Tit for Two Tats">Tit for Two Tats</option>
+              <option value="Grim Trigger">Grim Trigger</option>
+              <option value="Pavlov">Pavlov</option>
+              <option value="Always Cooperate">Always Cooperate</option>
+              <option value="Always Defect">Always Defect</option>
+              <option value="Suspicious Tit for Tat">Suspicious Tit for Tat</option>
+              <option value="Random">Random</option>
+            </select>
+          </label>
+          <label>
+            Rounds
+            <input id="play-rounds" type="number" min="1" max="500" value="20" />
+          </label>
+          <label>
+            Noise
+            <input id="play-noise" type="range" min="0" max="0.3" step="0.01" value="0" />
+            <span id="play-noise-label">0%</span>
+          </label>
+          <button type="button" class="btn btn-primary" id="start-match">Start match</button>
+          <button type="button" class="btn btn-ghost" id="reset-match">Reset</button>
+        </aside>
+
+        <div class="arena card">
+          <div class="scoreboard">
+            <div class="score you">
+              <span class="label">You</span>
+              <strong id="score-you">0</strong>
+            </div>
+            <div class="round-badge">
+              <span>Round</span>
+              <strong id="round-num">—</strong>
+              <span class="of">/ <span id="round-total">20</span></span>
+            </div>
+            <div class="score ai">
+              <span class="label" id="ai-label">AI</span>
+              <strong id="score-ai">0</strong>
+            </div>
+          </div>
+
+          <div class="move-stage" id="move-stage">
+            <div class="token you-token" id="you-token">?</div>
+            <div class="vs" lang="he">נגד</div>
+            <div class="token ai-token" id="ai-token">?</div>
+          </div>
+
+          <p class="status" id="play-status">Choose a strategy and start a match.</p>
+
+          <div class="actions" id="actions">
+            <button type="button" class="btn btn-coop" id="btn-c" disabled>
+              <span class="glyph">C</span>
+              Cooperate
+              <small lang="he">שתף פעולה</small>
+            </button>
+            <button type="button" class="btn btn-defect" id="btn-d" disabled>
+              <span class="glyph">D</span>
+              Defect
+              <small lang="he">בגד</small>
+            </button>
+          </div>
+
+          <div class="history" id="history" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel-tournament" class="panel" role="tabpanel" hidden>
+      <div class="tour-layout">
+        <aside class="card controls">
+          <h2>Tournament</h2>
+          <label>
+            Rounds per match
+            <input id="t-rounds" type="number" min="1" max="2000" value="200" />
+          </label>
+          <label>
+            Noise
+            <input id="t-noise" type="range" min="0" max="0.3" step="0.01" value="0" />
+            <span id="t-noise-label">0%</span>
+          </label>
+          <label>
+            Seed (optional)
+            <input id="t-seed" type="number" placeholder="e.g. 42" />
+          </label>
+          <button type="button" class="btn btn-primary" id="run-tournament">Run tournament</button>
+        </aside>
+
+        <div class="card board">
+          <h2>Leaderboard</h2>
+          <p class="board-note" lang="he">לוח תוצאות · eight classic strategies</p>
+          <ol id="leaderboard" class="leaderboard">
+            <li class="empty">Press <strong>Run tournament</strong> to rank the strategies.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Payoffs · CC=3 · DC=5 · CD=0 · DD=1 · Same engine as <code>prisoners_dilemma.py</code></p>
+  </footer>
+
+  <script src="game.js"></script>
+</body>
+</html>

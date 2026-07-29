@@ -28,6 +28,18 @@ Options:
   miscommunication (default 0)
 - `--seed`: random seed for reproducible results
 
+## Browser version
+
+**Live:** [https://grayprivate.github.io/grayplay/](https://grayprivate.github.io/grayplay/)
+
+Israel-themed web UI with play-vs-AI and tournament modes.
+
+Locally:
+
+```powershell
+start web/index.html
+```
+
 ## Tests
 
 ```bash
