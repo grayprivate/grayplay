@@ -32,12 +32,12 @@ Options:
 
 **Live:** [https://grayprivate.github.io/grayplay/](https://grayprivate.github.io/grayplay/)
 
-Israel-themed web UI with play-vs-AI and tournament modes.
+Israel-themed web UI with play-vs-AI and tournament modes. Source lives in `docs/` (GitHub Pages).
 
 Locally:
 
 ```powershell
-start web/index.html
+start docs/index.html
 ```
 
 ## Tests
