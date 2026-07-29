@@ -221,8 +221,13 @@ function resetTokens() {
   ai.className = "token ai-token";
 }
 
+const FACE = {
+  C: "😊",
+  D: "😵",
+};
+
 function showToken(el, move) {
-  el.textContent = move;
+  el.textContent = FACE[move] || move;
   el.className = `token ${el.classList.contains("you-token") ? "you-token" : "ai-token"} is-${move.toLowerCase()} is-pulse`;
 }
 
@@ -235,7 +240,7 @@ function renderHistory() {
   box.innerHTML = match.historyYou
     .map((m, i) => {
       const theirs = match.historyAi[i];
-      return `<span class="chip">#${i + 1} <span class="${m.toLowerCase()}">${m}</span>/<span class="${theirs.toLowerCase()}">${theirs}</span></span>`;
+      return `<span class="chip">#${i + 1} <span class="face ${m.toLowerCase()}" title="${m}">${FACE[m]}</span>/<span class="face ${theirs.toLowerCase()}" title="${theirs}">${FACE[theirs]}</span></span>`;
     })
     .join("");
 }

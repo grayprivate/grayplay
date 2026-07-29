@@ -10,8 +10,8 @@
   --sea: #0a4d8c;
   --sea-deep: #062a4a;
   --olive: #3d6b4f;
-  --coop: #1f8a5b;
-  --defect: #c0392b;
+  --coop: #1a5cff;
+  --defect: #e02020;
   --glow: rgba(255, 214, 120, 0.45);
   --radius: 18px;
   --shadow: 0 24px 60px rgba(6, 42, 74, 0.35);
@@ -227,7 +227,7 @@ footer {
   display: grid;
   gap: 0.15rem;
   justify-items: center;
-  background: linear-gradient(160deg, #2db87a, var(--coop));
+  background: linear-gradient(160deg, #4d7fff, var(--coop));
   color: #fff;
   border-radius: 16px;
   padding: 1rem;
@@ -239,15 +239,21 @@ footer {
   display: grid;
   gap: 0.15rem;
   justify-items: center;
-  background: linear-gradient(160deg, #e25545, var(--defect));
+  background: linear-gradient(160deg, #ff5a5a, var(--defect));
   color: #fff;
   border-radius: 16px;
   padding: 1rem;
 }
 
+.btn .face {
+  font-size: 2rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
 .btn .glyph {
   font-family: "Secular One", sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.15rem;
   line-height: 1;
 }
 
@@ -464,13 +470,15 @@ footer {
 }
 
 .token.is-c {
-  background: linear-gradient(160deg, #2db87a, var(--coop));
+  background: linear-gradient(160deg, #4d7fff, var(--coop));
   transform: scale(1.05);
+  font-size: 2.4rem;
 }
 
 .token.is-d {
-  background: linear-gradient(160deg, #e25545, var(--defect));
+  background: linear-gradient(160deg, #ff5a5a, var(--defect));
   transform: scale(1.05);
+  font-size: 2.4rem;
 }
 
 .token.is-pulse {
@@ -527,6 +535,10 @@ footer {
 
 .chip .d {
   color: var(--defect);
+}
+
+.chip .face {
+  font-size: 0.95rem;
 }
 
 .board-note {
